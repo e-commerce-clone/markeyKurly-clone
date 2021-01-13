@@ -80,7 +80,7 @@ window.addEventListener('DOMContentLoaded',function(){
 
         var imgs;
         var img_count;
-        
+        var img_position = 1;
         imgs = $('.__slide-wrapper ul');
         img_count = imgs.children().length;  //slide ul의 자식, 즉 li의 갯수 = 이미지의 갯수
 
