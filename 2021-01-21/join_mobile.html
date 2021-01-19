@@ -14,6 +14,21 @@
     <script src="./js/join_mobile.js"></script>
     <script src="https://t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
 
+    <script>
+        function init(){
+            var a = $('#my_iframe').contents().find('#someID').html();
+            console.log(a);
+            $('#user_address').text(a);
+            $('#user_address').val(a);
+
+
+            var b = $('#my_iframe').contents().find('#someID2').html();
+            console.log(b);
+            $('#user_detail_address').text(b);
+            $('#user_detail_address').val(b);
+        }
+    </script>
+
 
     <script>
         function id_check(){
@@ -94,9 +109,132 @@
 
 
     </script>
+
+
+
+    <script>
+        // onsubmit 관련된 코드짜기      
+
+        function on_id_check(){          //id 검사 함수
+            var id = $(".field_id input").val();
+            var spe = /[~!@#$%^&*()_+|<>?:{}]/;
+            if(id.length < 6){
+            alert('아이디를 정확히 입력해주세요');
+            return false;
+            }else if(spe.test(id) == 1){
+
+            alert('아이디를 정확히 입력해주세요');
+            return false;
+            }
+            else{
+            
+            return true;
+            }
+        }
+
+        function on_pw_check(){           //비밀번호 검사 함수
+            var pw = $(".field_pw input").val();
+            var num = /[0-9]/;
+            var eng = /[a-zA-Z]/;
+            var spe = /[~!@#$%^&*()_+|<>?:{}]/;
+            if(pw.length < 10){
+            
+            alert('비밀번호를 정확히 입력해주세요');
+            return false;
+            }else if(num.test(pw) == 0 || eng.test(pw) == 0 || spe.test(pw) == 0){
+            
+            alert('비밀번호를 정확히 입력해주세요');
+            return false;
+            }
+            else{
+            
+            return true;
+            }
+        }
+
+        function on_pw2_check(){           //비밀번호 확인 검사 함수
+            var pw = $(".field_pw input").val();
+            var pw2 = $(".field_repw input").val();
+            if(pw2.length == 0){
+            
+            alert('비밀번호 확인을 다시해주세요');
+            return false;
+            }else if(pw != pw2){
+            
+            alert('비밀번호 확인을 다시해주세요');
+            return false;
+            }
+            else{
+            
+            return true;
+            }
+        }
+
+        function on_name_check(){             //이름 검사 함수
+            var name = $(".field_name input").val();
+            if(name.length == 0){
+            
+            alert('이름을 입력해주세요');
+            return false;
+            }else{
+            
+            return true;
+            }
+        }
+
+        function on_email_check(){             //이메일 검사 함수
+            var email = $(".field_email input").val();
+            if(email.length == 0){
+            
+            alert('이메일을 정확히 입력해주세요');
+            return false;
+            }else{
+            
+            return true;
+            }
+        }
+
+        function on_phone_check(){               //휴대폰번호 검사함수  
+            var phone = $(".field_phone input").val();
+            if(phone.length == 0){
+            
+            alert('휴대폰 번호를 입력해주세요');
+            return false;
+            }else{
+            
+            return true;
+            }
+        }
+
+
+
+        function on_submit_check(){               // fomr에 onsubmit으로 최종적으로 넘겨야될 함수
+            
+            var check = false;                   //check변수에 false를 넣어주고 다른 함수들이 false를 반환하면 다음페이지로 못넘어가게 설정
+            if(on_id_check() == check){
+            return false;
+            }else if(on_pw_check() == check){
+            return false;
+            }else if(on_pw2_check() == check){
+            return false;
+            }else if(on_name_check() == check){
+            return false;
+            }else if(on_email_check() == check){
+            return false;
+            }else if(on_phone_check() == check){
+            return false;
+            }
+            else{
+            return true;
+            }
+        }
+
+        
+        
+    </script>
 </head>
 <body>
-    <div id="wrap" class="layout-main-wrapper no_relative" style="padding-top: 49px">
+    <div id="wrap" class="layout-main-wrapper no_relative" style="padding-top: 49px; ">
         <header id="header" class="header" style="top: 0px;">
             <h1 class="logo">
                 <span class="tit">회원가입</span>
@@ -142,7 +280,7 @@
 
         <div id="appStyle" class="user_form section_join">
             <section class="layout-register-form" id="memberjoin">
-                <form id="form" action="">
+                <form id="form" action="" method="POST" onsubmit="return on_submit_check();">
                     <div class="user_reg">
                         <div class="join_cell field_id">
                             <div class="tit">
@@ -204,7 +342,7 @@
                             </div>
                         </div>
 
-                        <div class="join_cell">
+                        <div class="join_cell field_name">
                             <div class="tit">
                                 이름
                                 <span class="ico">
@@ -237,7 +375,7 @@
                             </div>
                         </div>
 
-                        <div class="join_cell">
+                        <div class="join_cell field_phone">
                             <div class="tit">
                                 휴대폰
                                 <span class="ico">
@@ -270,8 +408,8 @@
                                     </div>
                                 </a>
                                 <div id="selectAddressSub">
-                                    <input type="text" id="user_address" name="user_address" placeholder="주소">
-                                    <input type="text"  id="user_detail_address" name="user_detail_address" value="" class="byteTotext" placeholder="나머지 주소를 입력해주세요">
+                                    <input type="text" id="user_address" name="user_address" placeholder="주소" readonly>
+                                    <input type="text"  id="user_detail_address" name="user_detail_address"  class="byteTotext" placeholder="나머지 주소를 입력해주세요">
                                     
                                     
                                 </div>
@@ -310,7 +448,7 @@
 
                     <div class="user_reg reg_agree">
                         <div class="join_submit">
-                            <button type="button" class="btn active" onclick="formJoinSubmit();">
+                            <button type="submit" class="btn active">
                                 <span class="txt_type">
                                     가입하기
                                 </span>
@@ -323,6 +461,20 @@
         </div>
             
 
+    </div>
+    
+
+
+
+    <div class="layout-layer-popup" style="display:none;">
+        <div class="layout-layer-popup-wrapper" style="padding: 0px; height: 95%;">
+            <div class="layout-layer-popup-container" style="width:95%; height: 100%; padding:0px">
+                <button class="btn_delivery_close" onclick="init()">확인</button>
+                <div class="layout-layer-popup-scroller address_scroll" >
+                    <iframe id="my_iframe" name="test1" src="http://127.0.0.1:5500/iframe_page.html" frameborder="0" style="width: 100%; height:866px;"></iframe>
+                </div>
+            </div>
+        </div>
     </div>
 </body>
 </html>
