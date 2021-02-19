@@ -1,0 +1,10 @@
+<script>
+        function popup_address_add(){    //배송지 추가
+            var popupX = (window.screen.width / 2) - (530 / 2);   // 팝업창을 가운데 띄우기 위한거
+            var popupY = (window.screen.height / 2) - (400 / 2);
+            var url = "../mykurly/mykurly_address_search.html";        // 주소검색 띄울 html url 적어주세욤 !
+            var name = "popup test";
+            var option = "width = 530, height = 500, top = " + popupY + " , left = " + popupX + " , location = no"
+            window.open(url, name, option);
+        }
+</script>
