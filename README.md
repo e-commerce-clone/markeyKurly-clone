@@ -1,4 +1,4 @@
-# e-commerce-clone      http://inukurly.shop/
+# e-commerce-clone      https://github.com/e-commerce-clone/e-commerce-clone
 
 
 **2020-12-31 ~ 2021-01-07**  
